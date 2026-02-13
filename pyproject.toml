@@ -1,0 +1,34 @@
+[project]
+name = "bookworm"
+version = "0.1.0"
+description = "A feature-rich CLI ebook reader with library management, multi-format support, and translation"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "textual>=3.0.0",
+    "ebooklib>=0.18",
+    "pymupdf>=1.25.0",
+    "python-docx>=1.1.0",
+    "markdown>=3.7",
+    "beautifulsoup4>=4.12.0",
+    "httpx>=0.28.0",
+    "python-dotenv>=1.1.0",
+    "lxml>=5.0.0",
+]
+
+[project.scripts]
+bookworm = "bookworm.app:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/bookworm"]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.0.2",
+    "pytest-asyncio>=1.3.0",
+    "pytest-cov>=7.0.0",
+]
