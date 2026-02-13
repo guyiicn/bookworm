@@ -29,6 +29,91 @@ uv run bookworm            # open the library
 uv run bookworm book.epub  # import & open a file directly
 ```
 
+---
+
+## Environment Setup
+
+### Linux (Ubuntu / Debian)
+
+```bash
+# 1. Install system dependencies
+sudo apt update
+sudo apt install -y git python3.11 python3.11-venv python3.11-dev \
+    build-essential libffi-dev libssl-dev
+
+# 2. Install uv (Python package manager)
+curl -LsSf https://astral.sh/uv/install.sh | sh
+source ~/.bashrc   # or restart your terminal
+
+# 3. Clone the project
+git clone https://github.com/guyiicn/bookworm.git
+cd bookworm
+
+# 4. Install dependencies (uv will automatically use Python 3.11)
+uv sync
+
+# 5. (Optional) Set up translation
+cp .env.example .env
+nano .env  # fill in your API keys
+
+# 6. Run
+uv run bookworm
+```
+
+> **Arch Linux**: replace step 1 with `sudo pacman -S git python base-devel`
+>
+> **Fedora**: replace step 1 with `sudo dnf install git python3.11 python3.11-devel gcc libffi-devel openssl-devel`
+>
+> **Tip**: If your distro only ships Python 3.12+, `uv` will auto-download Python 3.11 for you — no manual install needed.
+
+### Windows
+
+#### Option A — PowerShell (recommended)
+
+```powershell
+# 1. Install uv
+powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+# Restart your terminal after install
+
+# 2. Clone the project
+git clone https://github.com/guyiicn/bookworm.git
+cd bookworm
+
+# 3. Install dependencies (uv auto-downloads Python 3.11 if not found)
+uv sync
+
+# 4. (Optional) Set up translation
+copy .env.example .env
+notepad .env  # fill in your API keys
+
+# 5. Run
+uv run bookworm
+```
+
+#### Option B — WSL2 (Windows Subsystem for Linux)
+
+If you prefer a native terminal experience (better Unicode rendering for CJK books):
+
+```powershell
+# In PowerShell (Admin), enable WSL and install Ubuntu
+wsl --install
+# Restart, then open "Ubuntu" from Start menu
+```
+
+Then follow the **Linux** instructions above inside WSL.
+
+#### Windows Prerequisites
+
+| Requirement | How to get it |
+|---|---|
+| **Git** | [git-scm.com](https://git-scm.com/download/win) or `winget install Git.Git` |
+| **Windows Terminal** | Pre-installed on Win 11; [get it for Win 10](https://aka.ms/terminal) — much better than `cmd.exe` for TUI apps |
+| **Python 3.11+** | Optional — `uv` can download it for you. Or get it from [python.org](https://www.python.org/downloads/) |
+
+> **Note**: Run bookworm in **Windows Terminal** (not the legacy `cmd.exe` or old PowerShell window) for proper color and Unicode support.
+
+---
+
 ## Configuration
 
 Copy `.env.example` to `.env` (in the project root, `~/.config/bookworm/`, or `~/`) and fill in the providers you want to use:
